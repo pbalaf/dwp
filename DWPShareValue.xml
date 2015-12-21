@@ -1,0 +1,80 @@
+<Module>
+	<ModulePrefs title="Share Value" width="400" height="36" scrolling="false">
+		<Require feature="dynamic-height" /> 
+	</ModulePrefs>
+	
+	<UserPref name="shareColor" display_name="Share value colour" required="true" default_value="Orange" /> 
+	<UserPref name="dateColor" display_name="Date colour" required="true" default_value="White" /> 
+	<UserPref name="currencyColor" display_name="Currency colour" required="true" default_value="Orange" />  
+	
+	<Content type="html">
+	<![CDATA[  
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+		
+		<script>
+			$(document).ready(function(){
+				var prefs = new gadgets.Prefs();
+				var shareColor = prefs.getString("shareColor");
+				var dateColor = prefs.getString("dateColor");
+				var currencyColor = prefs.getString("currencyColor");
+				
+				$("#shareValue").css("color", shareColor);
+				$("#shareDate").css("color", dateColor);
+				$("#currency").css("color", currencyColor);
+				$("#currencyLetter").css("color", currencyColor);
+				
+				$.getJSON("https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20yahoo.finance.quote%20where%20symbol%3D%27LG.PA%27&diagnostics=true&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys&format=json", function(data){
+					var shareValue = data.query.results.quote.LastTradePriceOnly;
+					$("#shareValue").html(shareValue);
+					var date = new Date(data.query.created);
+					var shareDate = new Date(date.valueOf() + 2*60*60000);
+					$("#shareDate").html(shareDate.toUTCString().concat("+2"));
+					
+				})
+			});
+		</script>
+		
+		<style type="text/css">
+			body {
+				background:transparent;
+				font-family : Arial;
+				font-weight : bold;
+			}
+
+			#container {
+			}
+			
+			#currency {
+				font-size: 1em;
+				float : left;
+			}
+			
+			#shareDate {
+				font-size : 0.74em;
+				float : left;
+				padding-top : 12px;
+			}
+			
+			#currencyLetter {
+				font-size : 0.74em;
+				float : left;
+				padding-top : 12px;
+				padding-right : 20px;
+			}
+			
+			#shareValue {
+			  font-size : 1.6em;
+			  float : left;
+			  padding-right : 4px;
+			}
+		</style>
+
+		<div id='container'>
+			<div id="currency"><sup>€</sup></div>
+			<div id="shareValue"></div>
+			<div id="currencyLetter">EUR</div>
+			<div id="shareDate"></div>
+		</div>
+	]]>
+	</Content>
+</Module>

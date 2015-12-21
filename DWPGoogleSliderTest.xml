@@ -1,0 +1,62 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Module>
+    <ModulePrefs description="Google Slide Embed Gadget"
+    author="Pierrick Barreau"
+    author_email="pbarreau@gpartner.eu"
+    title="__UP_myname__"
+    title_url="__UP_URL__"
+    height="480"
+    width="100%">
+  	<Require feature="dynamic-height"/>
+    </ModulePrefs>
+    <UserPref datatype="string" name="myname" display_name="Gadget title" default_value="Google-Main-Slider" />
+    <UserPref datatype="string" name="URL" display_name="Web page URL" default_value="http://weather.yahoo.com/argentina/tierra-del-fuego/ushuaia-467070"/>
+    <UserPref datatype="string" name="pagewidth" display_name="Web page width" default_value="360" />
+    <UserPref datatype="string" name="pageheight" display_name="Web page height" default_value="480" />
+    <UserPref datatype="string" name="iframewidth" display_name="Frame width " default_value="364" />
+    <UserPref datatype="string" name="iframeheight" display_name="Frame height " default_value="513" />
+    <UserPref datatype="string" name="iframetop" display_name="Distance to top " default_value="2" />
+    <UserPref datatype="string" name="iframeleft" display_name="Distance to left " default_value="2" />
+    <Content type="html">
+        <![CDATA[
+		<div id="slideshow"></div>
+        <script type="text/javascript">
+			
+			// Retrieve user-level preferences
+			var prefs = new gadgets.Prefs();
+			var url = prefs.getString('URL');
+			var pageWidth = prefs.getString('pagewidth');
+			var pageHeight = prefs.getString('pageheight');
+			var iframeWidth = prefs.getString('iframewidth');
+			var iframeHeight = prefs.getString('iframeheight');
+			var iframeMarginLeft = prefs.getString('iframeleft');
+			var iframeMarginTop = prefs.getString('iframetop');
+	
+			// Computes parameters needed for the slideshow to be responsive
+			var screenWidth = document.body.clientWidth;
+			alert("Screen Width is "+screenWidth);
+			if(screenWidth < iframeWidth) {
+				iframeWidth = screenWidth + 3;
+				iframeMarginTop = Math.round(243 -2/3 * screenWidth);
+				pageHeight = Math.round(4/3*screenWidth -2);
+			}
+			
+			// Create the iFrame with relevant paramaters
+			var iframe = document.createElement('iframe');
+			iframe.setAttribute('width', iframeWidth + 'px');
+			iframe.setAttribute('height', iframeHeight + 'px');
+			iframe.setAttribute('style','margin-top:-' + iframeMarginTop + 'px;' + 'margin-left:-' + iframeMarginLeft + 'px; overflow:hidden;');
+			iframe.setAttribute('frameborder',0);
+			iframe.setAttribute('src', url);
+
+			// Set the slideshow to the placeholder div
+			var slideshow = document.getElementById('slideshow');
+			slideshow.setAttribute('style', 'width:'+ pageWidth + 'px;' + 'height:' + pageHeight + 'px; overflow:hidden; -webkit-overflow-scrolling: touch;');
+			slideshow.innerHTML = '';
+			slideshow.appendChild(iframe);
+			
+			_IG_AdjustIFrameHeight();
+        </script>
+        ]]>
+    </Content>
+</Module>

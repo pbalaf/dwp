@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Module>
+    <ModulePrefs description="Google Slide Embed Gadget" title="__UP_myname__" title_url="__UP_URL__" height="236" width="236">
+		<Require feature="dynamic-height"/>
+    </ModulePrefs>
+	
+    <UserPref datatype="string" name="myname" display_name="Gadget title" default_value="Google-Small-Slider" />
+    <UserPref datatype="string" name="URL" display_name="Slider URL" default_value=""/>
+    <UserPref datatype="string" name="pagewidth" display_name="Web page width" default_value="240" />
+    <UserPref datatype="string" name="pageheight" display_name="Web page height" default_value="269" />
+    <UserPref datatype="string" name="iframewidth" display_name="Frame width " default_value="236" />
+    <UserPref datatype="string" name="iframeheight" display_name="Frame height " default_value="236" />
+    <UserPref datatype="string" name="iframetop" display_name="Distance to top " default_value="2" />
+    <UserPref datatype="string" name="iframeleft" display_name="Distance to left " default_value="2" />
+    <Content type="html">
+        <![CDATA[
+        <script type="text/javascript">
+            _IG_AdjustIFrameHeight();
+        </script>
+        <div style="width: __UP_iframewidth__px; height: __UP_iframeheight__px; overflow: hidden">
+            <iframe name="MyIFrame" src="__UP_URL__" frameborder="0" scrolling="auto" width="__UP_pagewidth__" height="__UP_pageheight__" frameborder="0" style="margin-left: -__UP_iframeleft__px; margin-top: -__UP_iframetop__px" />";
+        </div>
+        ]]>
+    </Content>
+</Module>
