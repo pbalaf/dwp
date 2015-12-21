@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Module>
+    <ModulePrefs description="Jive Space Integration" title="__UP_title__" height="200" width="200">
+		<Require feature="dynamic-height"/>
+    </ModulePrefs>
+	
+    <UserPref datatype="string" name="title" display_name="Gadget title" default_value="Jive-Space-Integration" />
+    <UserPref datatype="string" name="spaceURL" display_name="Space URL" default_value=""/>
+    <UserPref datatype="string" name="width" display_name="Gadget width" default_value="200" />
+    <UserPref datatype="string" name="height" display_name="Gadget height" default_value="200" />
+    
+    <Content type="html">
+    <![CDATA[
+        <script type="text/javascript">
+
+        </script>
+        <div style="width: __UP_width__px; height: __UP_height__px; overflow: hidden">
+            
+		</div>
+    ]]>
+    </Content>
+</Module>
